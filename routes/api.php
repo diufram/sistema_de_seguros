@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClienteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Rutas de autentificación
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post("/signup", [AuthController::class, "signup"]);
+// Route::get("/user", [AuthController::class, "getUser"]);
+
+
+Route::post("/editarVehiculos",[ClienteController::class,"editarVehiculo"]);
+
+
+//TODO: RUTAS PROTEGIDAS POR SANCTUM
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post("/logout", [AuthController::class, "logout"]);
+    Route::get("/listaVehiculos",[ClienteController::class,"obtenerListaVehiculos"]);
+    Route::post("/eliminarVehiculo",[ClienteController::class,"eliminarVehiculo"]);
+
+
 });
