@@ -32,4 +32,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post("/eliminarVehiculo",[ClienteController::class,"eliminarVehiculo"]);
 
 
-});
+});  
